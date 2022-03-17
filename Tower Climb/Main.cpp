@@ -1,11 +1,14 @@
 #include <SFML/Graphics.hpp>
+#include "Player.h"
 
 int main()
 {
 
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML Works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(700, 700), "SFML Works!");
+
+	sf::Clock gameClock;
+
+	Player myPlayer;
 
 	while (window.isOpen())
 	{
@@ -17,8 +20,15 @@ int main()
 				window.close();
 		}
 
+		// Update
+		sf::Time frameTime = gameClock.restart();
+		myPlayer.Update(frameTime);
+
+		// Draw
 		window.clear();
-		window.draw(shape);
+
+		myPlayer.Draw(window);
+
 		window.display();
 
 	}
