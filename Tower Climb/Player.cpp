@@ -5,6 +5,7 @@ sf::Texture* Player::playerTexture = nullptr;
 Player::Player()
 	: GameObject	()
 	, MOVE_SPEED	(100)
+	, GRAVITY		(100)
 	, velocity		(0, 0)
 {
 	if (playerTexture == nullptr)
@@ -24,6 +25,9 @@ void Player::Update(sf::Time frameTime)
 		velocity.x = -MOVE_SPEED;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		velocity.x = MOVE_SPEED;
+
+	// Update velocity based on gravity
+	velocity.y += GRAVITY * frameTime.asSeconds();
 
 	// Update position based on velocity
 	SetPosition(GetPosition() + velocity * frameTime.asSeconds());

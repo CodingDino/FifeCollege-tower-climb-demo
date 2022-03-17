@@ -17,6 +17,7 @@ private:
     static sf::Texture* playerTexture;
 
     const float MOVE_SPEED;
+    const float GRAVITY;
     sf::Vector2f velocity;
 
 };
