@@ -1,21 +1,38 @@
 #include "Player.h"
 
-sf::Texture* Player::playerTexture = nullptr;
+sf::Texture* Player::playerStand = nullptr;
+sf::Texture* Player::playerJump = nullptr;
 
 Player::Player()
-	: GameObject	()
-	, MOVE_SPEED	(100)
-	, JUMP_SPEED	(500)
-	, GRAVITY		(1000)
-	, velocity		(0, 0)
+	: AnimatingObject	()
+	, MOVE_SPEED		(100)
+	, JUMP_SPEED		(500)
+	, GRAVITY			(1000)
+	, velocity			(0, 0)
 {
-	if (playerTexture == nullptr)
+	if (playerStand == nullptr)
 	{
-		playerTexture = new sf::Texture();
-		playerTexture->loadFromFile("Assets/Graphics/Player.png");
+		playerStand = new sf::Texture();
+		playerStand->loadFromFile("Assets/Graphics/PlayerStand.png");
+	}
+	if (playerJump == nullptr)
+	{
+		playerJump = new sf::Texture();
+		playerJump->loadFromFile("Assets/Graphics/PlayerJump.png");
 	}
 
-	objectSprite.setTexture(*playerTexture);
+	objectSprite.setTexture(*playerStand);
+
+
+	// Create indvidual animations
+	Animation* jump = CreateAnimation("jump");
+	jump->AddFrame(*playerStand);
+	jump->AddFrame(*playerJump);
+	jump->SetPlayBackSpeed(10);
+	jump->SetLoop(false);
+
+	Play("jump");
+
 }
 
 void Player::Update(sf::Time frameTime)
@@ -36,13 +53,14 @@ void Player::Update(sf::Time frameTime)
 	SetPosition(GetPosition() + velocity * frameTime.asSeconds());
 
 	// Call parent update
-	GameObject::Update(frameTime);
+	AnimatingObject::Update(frameTime);
 
 }
 
 void Player::Jump()
 {
 	velocity.y = -JUMP_SPEED;
+	Play("jump");
 }
 
 

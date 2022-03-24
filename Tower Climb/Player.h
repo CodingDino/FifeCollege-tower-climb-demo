@@ -1,9 +1,9 @@
 #pragma once
-#include "GameObject.h"
+#include "AnimatingObject.h"
 
 
 class Player :
-    public GameObject
+    public AnimatingObject
 {
 
 public:
@@ -16,7 +16,8 @@ public:
 
 private:
 
-    static sf::Texture* playerTexture;
+    static sf::Texture* playerStand;
+    static sf::Texture* playerJump;
 
     const float MOVE_SPEED;
     const float JUMP_SPEED;
