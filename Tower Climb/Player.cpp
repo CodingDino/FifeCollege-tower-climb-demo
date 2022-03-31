@@ -2,6 +2,7 @@
 
 sf::Texture* Player::playerStand = nullptr;
 sf::Texture* Player::playerJump = nullptr;
+sf::SoundBuffer* Player::jumpSoundBuffer = nullptr;
 
 Player::Player()
 	: AnimatingObject	()
@@ -9,6 +10,7 @@ Player::Player()
 	, JUMP_SPEED		(500)
 	, GRAVITY			(1000)
 	, velocity			(0, 0)
+	, jumpSound			()
 {
 	if (playerStand == nullptr)
 	{
@@ -28,10 +30,19 @@ Player::Player()
 	Animation* jump = CreateAnimation("jump");
 	jump->AddFrame(*playerStand);
 	jump->AddFrame(*playerJump);
-	jump->SetPlayBackSpeed(10);
+	jump->SetPlayBackSpeed(20);
 	jump->SetLoop(false);
 
 	Play("jump");
+
+	// Setup sound
+	if (jumpSoundBuffer == nullptr)
+	{
+		jumpSoundBuffer = new sf::SoundBuffer();
+		jumpSoundBuffer->loadFromFile("Assets/Audio/jump.wav");
+	}
+
+	jumpSound.setBuffer(*jumpSoundBuffer);
 
 }
 
@@ -61,6 +72,7 @@ void Player::Jump()
 {
 	velocity.y = -JUMP_SPEED;
 	Play("jump");
+	jumpSound.play();
 }
 
 

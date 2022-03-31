@@ -14,6 +14,7 @@ public:
 
     void SetPosition(sf::Vector2f newPos);
     sf::Vector2f GetPosition();
+    sf::FloatRect GetCollider();
 
 protected:
 
