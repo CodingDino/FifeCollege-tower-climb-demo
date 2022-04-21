@@ -89,6 +89,12 @@ void Animation::Update(sf::Time frameTime)
 void Animation::Play()
 {
 	playing = true;
+
+	// Update sprite to show correct new frame
+	if (sprite)
+	{
+		sprite->setTexture(*frames[currentFrame]);
+	}
 }
 
 void Animation::Pause()
@@ -103,6 +109,12 @@ void Animation::Stop()
 
 	// Reset animation to start of the animation
 	currentFrame = 0;
+
+	// Update sprite to show correct new frame
+	if (sprite)
+	{
+		sprite->setTexture(*frames[currentFrame]);
+	}
 
 	// Make sure we spend the full time on that first frame when we play again
 	float timeToChange = 1.0f / playBackSpeed;

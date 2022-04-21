@@ -30,7 +30,7 @@ Player::Player()
 	jump->SetPlayBackSpeed(10);
 	jump->SetLoop(false);
 
-	Play("Jump");
+	Play("jump");
 }
 
 void Player::Update(sf::Time frameTime)
@@ -58,7 +58,7 @@ void Player::Update(sf::Time frameTime)
 void Player::Jump()
 {
 	velocity.y = -JUMP_SPEED;
-	Play("Jump");
+	Play("jump");
 }
 
 
