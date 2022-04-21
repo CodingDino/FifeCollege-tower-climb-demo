@@ -14,10 +14,15 @@ public:
 
     void SetPosition(sf::Vector2f newPos);
     sf::Vector2f GetPosition();
+    sf::FloatRect GetCollider();
 
 protected:
 
+    bool IsColliding(GameObject& other);
+    sf::Vector2f GetCollisionDepth(GameObject& other);
+
     sf::Sprite objectSprite;
+    sf::FloatRect modifiedCollider;
 
 private:
 

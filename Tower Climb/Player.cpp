@@ -31,6 +31,12 @@ Player::Player()
 	jump->SetLoop(false);
 
 	Play("jump");
+
+	// Set up player collider
+	modifiedCollider.left = 45;
+	modifiedCollider.top = 73;
+	modifiedCollider.width = 102 - modifiedCollider.left;
+	modifiedCollider.height = 140 - modifiedCollider.top;
 }
 
 void Player::Update(sf::Time frameTime)
