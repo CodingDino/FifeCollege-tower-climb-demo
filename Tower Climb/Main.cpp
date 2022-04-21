@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Platform.h"
 
 int main()
 {
@@ -9,6 +10,9 @@ int main()
 	sf::Clock gameClock;
 
 	Player myPlayer;
+
+	Platform myPlatform;
+	myPlatform.SetPosition(sf::Vector2f(0,500));
 
 	while (window.isOpen())
 	{
@@ -24,10 +28,13 @@ int main()
 		sf::Time frameTime = gameClock.restart();
 		myPlayer.Update(frameTime);
 
+		myPlatform.HandleCollision(myPlayer);
+
 		// Draw
 		window.clear();
 
 		myPlayer.Draw(window);
+		myPlatform.Draw(window);
 
 		window.display();
 
