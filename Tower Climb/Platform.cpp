@@ -37,9 +37,28 @@ void Platform::HandleCollision(GameObject& other)
 
 	// If we did, get the collision depth
 	sf::Vector2f depth = GetCollisionDepth(other);
+	sf::Vector2f absDepth = sf::Vector2f(abs(depth.x), abs(depth.y));
+	sf::Vector2f playerPosition = checkPlayer->GetPosition();
 
 	// Use the collision depth to move the player out of the platform
+	if (absDepth.x < absDepth.y) // we hit the side of the platform
+	{
+		// Move them along the x direction
+		playerPosition.x += depth.x;
+		checkPlayer->SetPosition(playerPosition);
+	}
+	else // They hit the top or bottom of the platform
+	{
+		// Move them along the y direction
+		playerPosition.y += depth.y;
+		checkPlayer->SetPosition(playerPosition);
 
-	// If the player hit the top of the platform, make them jump
+		// If the player hit the top of the platform, make them jump
+		if (playerPosition.y < GetPosition().y)
+		{
+			checkPlayer->Jump();
+		}
+	}
+
 
 }

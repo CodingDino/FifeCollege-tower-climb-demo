@@ -28,6 +28,9 @@ int main()
 		sf::Time frameTime = gameClock.restart();
 		myPlayer.Update(frameTime);
 
+		// Check collision
+		myPlatform.HandleCollision(myPlayer);
+
 		// Draw
 		window.clear();
 
